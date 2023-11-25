@@ -1,0 +1,106 @@
+######################
+# - Conky settings - #
+######################
+update_interval 1
+total_run_times 0
+net_avg_samples 1
+cpu_avg_samples 1
+
+imlib_cache_size 0
+double_buffer yes
+no_buffers yes
+
+#####################
+# - Text settings - #
+#####################
+use_xft yes
+xftfont Fira Book:normal:size=9
+override_utf8_locale yes
+text_buffer_size 2048
+
+#############################
+# - Window specifications - #
+#############################
+own_window yes
+own_window_type normal
+own_window_transparent no
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+own_window_argb_visual yes
+own_window_argb_value 178
+own_window_colour 000000
+minimum_size 300 300
+
+alignment middle_left
+gap_x 120
+gap_y 0
+
+#########################
+# - Graphics settings - #
+#########################
+draw_shades no
+
+default_color ffffff
+default_shade_color 000000
+color1 1CEBD3
+color2 1B87AB
+color3 569AE0
+color4 CEE1F8
+color5 E80DF5
+color6 A00BBF
+
+TEXT
+#--------------------------------------------------------------------------------------------------------------------------------
+#                                                   System
+#--------------------------------------------------------------------------------------------------------------------------------
+${color4}${font ConkySymbols:size=14}a${font} S Y S T E M» $hr ${color}
+
+${goto 10}OS: ${color2}${alignr 10}${execi 86400 cat /etc/*-release | grep 'DISTRIB' | awk -F '=' 'NR==1 {print $2}'}${color}
+${goto 10}Version: ${color2}${alignr 10}${execi 86400 cat /etc/*-release | grep 'VERSION' | awk -F '"' 'NR==2 {print $2}' | cut -c 1-11}${color}
+${goto 10}GNOME Shell: ${color2}${alignr 10}${exec gnome-shell --version}${color}
+${goto 10}${color}Kernel: ${color2}${alignr 10}${kernel}${color}
+${goto 10}Uptime: ${color6}${alignr 10}$uptime${color}
+${goto 10}Battery Time: ${color6}${alignr 10}${battery_time BAT0}
+
+#--------------------------------------------------------------------------------------------------------------------------------
+#                                                   CPU
+#-------------------------------------------------------------------------------------------------------------------------------
+${color4}${font ConkySymbols:size=14}f${font} C P U» $hr${color}
+
+${alignc 10}${font FiraBook:size=10}${color2}${execi 86400 cat /proc/cpuinfo|grep 'model name'|awk -F ' ' 'NR==1 {print $4, $5, $6, $7}'}${color}${font}
+${goto 10}Active Governor: ${color2}${alignr 10}${execi 86400 cat /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor}${color}
+${goto 10}Clock Rate: ${color6}${alignr 10}${freq_g 0}GHz${color}
+${goto 10}CPU Temp: ${color6}${alignr 10}${exec sensors | grep 'CPU' | awk 'NR==1 {print $2}'}
+
+#-------------------------------------------------------------------------------------------------------------------------------
+#                                                   Cores
+#-------------------------------------------------------------------------------------------------------------------------------
+${color}${goto 10}Average: ${color6}${alignc -20}${freq 0}MHz${alignr 10}${cpu cpu0}%${color}
+${color1}${cpubar cpu0 8,300 fc8c3b c6396b -t}
+
+${color}${goto 10}Top Processes${goto 225}cpu%${goto 275}mem%${color}
+${voffset 4}     ${color}1  -  ${color1}${top name 1}${alignr}${goto 170} ${color6}${goto 220}${top cpu 1} ${goto 270}${top mem 1}
+     ${color}2  -  ${color1}${top name 2}${alignr} ${color6}${goto 220}${top cpu 2} ${goto 270}${top mem 2}
+     ${color}3  -  ${color1}${top name 3}${alignr} ${color6}${goto 220}${top cpu 3} ${goto 270}${top mem 3}
+     ${color}4  -  ${color1}${top name 4}${alignr} ${color6}${goto 220}${top cpu 4} ${goto 270}${top mem 4}
+     ${color}5  -  ${color1}${top name 5}${alignr} ${color6}${goto 220}${top cpu 5} ${goto 270}${top mem 5}
+
+#-------------------------------------------------------------------------------------------------------------------------------
+#                                                   Memory
+#-------------------------------------------------------------------------------------------------------------------------------
+${color4}${font ConkySymbols:size=14}J${font} M E M O R Y» $hr${color}
+
+${goto 10}RAM:${alignc -20}${color6}$mem${color} / ${color2}$memmax${color} ${color6}${alignr 10}$memperc%${color}
+${color1}${membar 8,300}${color}
+
+${goto 10}SWAP:${alignc -20}${color6}$swap${color} / ${color2}$swapmax${color} ${color6}${alignr 10}$swapperc%${color}
+${color1}${swapbar 8,300}${color}
+
+${color}${goto 10}Top Processes${goto 225}cpu%${goto 275}mem%${color}
+${voffset 4}     ${color}1  -  ${color1}${top_mem name 1}${alignr}${goto 170} ${color6}${goto 220}${top cpu 1} ${goto 270}${top mem 1}
+     ${color}2  -  ${color1}${top_mem name 2}${alignr} ${color6}${goto 220}${top_mem cpu 2} ${goto 270}${top_mem mem 2}
+     ${color}3  -  ${color1}${top_mem name 3}${alignr} ${color6}${goto 220}${top_mem cpu 3} ${goto 270}${top_mem mem 3}
+     ${color}4  -  ${color1}${top_mem name 4}${alignr} ${color6}${goto 220}${top_mem cpu 4} ${goto 270}${top_mem mem 4}
+     ${color}5  -  ${color1}${top_mem name 5}${alignr} ${color6}${goto 220}${top_mem cpu 5} ${goto 270}${top_mem mem 5}
+
+${color4}${goto 10}$hr${color}
+
