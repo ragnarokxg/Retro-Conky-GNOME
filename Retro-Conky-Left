@@ -29,7 +29,7 @@ conky.config = {
     own_window_transparent = false,
     own_window_argb_visual = true,
     own_window_argb_value = 178,
-    own_window_colour = '#0C141F',
+    own_window_colour = '#000000',
     minimum_width = 300, minimum_height = 300,
 
     alignment = 'middle_left',
