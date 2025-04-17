@@ -1,55 +1,115 @@
 conky.config = {
---#####################
--- - Conky settings - #
---#####################
-	update_interval = 1,
-	total_run_times = 0,
-	net_avg_samples = 1,
-	cpu_avg_samples = 1,
+--#############################
+--#    - Conky  Behavior -    #
+--#############################
+    out_to_x = false,
+    out_to_wayland = true,
+    update_interval = 1,
+    total_run_times = 0,
+    cpu_avg_samples = 1,
+    net_avg_samples = 1,
 
-	imlib_cache_size = 0,
-	double_buffer = true,
-	no_buffers = true,
+    imlib_cache_size = 0,
+    double_buffer = true,
+    no_buffers = true,
 
---####################
--- - Text settings - #
---####################
-	use_xft = true,
-	font = 'Fira Book:normal:size=9',
-	override_utf8_locale = true,
-	text_buffer_size = 2048,
+--#############################
+--#     - Text Settings -     #
+--#############################
+    use_xft = true,
+    font = 'Fira Book:normal:size=9',
+    override_utf8_locale = true,
+    text_buffer_size = 2048,
 
---############################
--- - Window specifications - #
---############################
-	own_window = true,
-	own_window_type = 'normal',
-	own_window_transparent = false,
-	own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
-	own_window_argb_visual = true,
-	own_window_argb_value = 178,
-	own_window_colour = '#000000',
-	minimum_width = 320, minimum_height = 320,
+--#############################
+--# - Window Specifications - #
+--#############################
+    own_window = true,
+    own_window_type = 'desktop',
+    own_window_transparent = false,
+    own_window_argb_visual = true,
+    own_window_argb_value = 178,
+    own_window_colour = '#000000',
+    minimum_width = 300, minimum_height = 300,
 
-	alignment = 'middle_right',
-	gap_x = 80,
-	gap_y = 0,
+    alignment = 'middle_left',
+    gap_x = 120,
+    gap_y = 0,
 
---########################
--- - Graphics settings - #
---########################
-	draw_shades = false,
+--#############################
+--#   - Graphics Settings -   #
+--#############################
+    draw_shades = false,
 
-	default_color = '#ffffff',
-	default_shade_color = '#000000',
-	color1 = '#1CEBD3',
-	color2 = '#1B87AB',
-	color3 = '#569AE0',
-	color4 = '#CEE1F8',
-	color5 = '#E80DF5',
-	color6 = '#A00BBF',
-
+--#############################
+--#    - Color  Settings -    #
+--#############################
+    default_color = '#ffffff',
+    default_shade_color = '#000000',
+    color1 = '#1CEBD3',
+    color2 = '#1B87AB',
+    color3 = '#569AE0',
+    color4 = '#CEE1F8',
+    color5 = '#E80DF5',
+    color6 = '#A00BBF',
 };
+
+conky.text = [[
+#--------------------------------------------------------------------------------------------------------------------------------
+#                                                   System
+#--------------------------------------------------------------------------------------------------------------------------------
+${color4}${font ConkySymbols:size=14}a${font} S Y S T E M» $hr
+
+${offset 10}${color}OS:           ${color2}${alignr 10}${exec cat /etc/*-release | grep 'DISTRIB' | awk -F '=' 'NR==1 {print $2}'}${color}
+${offset 10}${color}Version:      ${color2}${alignr 10}${exec cat /etc/*-release | grep 'VERSION' | awk -F '"' 'NR==2 {print $2}' | cut -c 1-11}
+${offset 10}${color}Kernel:       ${color2}${alignr 10}${kernel}
+${offset 10}${color}Uptime:       ${color6}${alignr 10}${uptime}
+${offset 10}${color}Battery Time: ${color6}${alignr 10}${battery_time}
+
+#--------------------------------------------------------------------------------------------------------------------------------
+#                                                   CPU
+#-------------------------------------------------------------------------------------------------------------------------------
+${color4}${font ConkySymbols:size=14}f${font} C P U» $hr
+
+${alignc -15}${font FiraBook:size=10}${color2}${exec cat /proc/cpuinfo|grep 'model name'|awk -F ' ' 'NR==1 {print $4, $5, $6, $7}'}${font}
+${offset 10}${color}Active Governor: ${color2}${alignr 10}${exec cat /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor}
+${offset 10}${color}Clock Rate:      ${color6}${alignr 10}${freq_g 0}GHz
+${offset 10}${color}CPU Temp:        ${color6}${alignr 10}${exec sensors | grep 'CPU' | awk 'NR==1 {print $2}'}
+
+#-------------------------------------------------------------------------------------------------------------------------------
+#                                                   Cores
+#-------------------------------------------------------------------------------------------------------------------------------
+${color}${offset 10}Average: ${color6}${alignc -20}${freq 0}MHz${alignr 10}${cpu cpu0}%
+${color1}${cpubar cpu0 8,300 fc8c3b c6396b -t}
+
+${offset 10}${color}Top Processes${alignr 60}cpu%${alignr}mem%
+${offset 15}${color}1  -  ${color1}${top name 1}${alignr 75} ${color6}${top cpu 1}${alignr 15}${top mem 1}
+${offset 15}${color}2  -  ${color1}${top name 2}${alignr 75} ${color6}${top cpu 2}${alignr 15}${top mem 2}
+${offset 15}${color}3  -  ${color1}${top name 3}${alignr 75} ${color6}${top cpu 3}${alignr 15}${top mem 3}
+${offset 15}${color}4  -  ${color1}${top name 4}${alignr 75} ${color6}${top cpu 4}${alignr 15}${top mem 4}
+${offset 15}${color}5  -  ${color1}${top name 5}${alignr 75} ${color6}${top cpu 5}${alignr 15}${top mem 5}
+
+#-------------------------------------------------------------------------------------------------------------------------------
+#                                                   Memory
+#-------------------------------------------------------------------------------------------------------------------------------
+${color4}${font ConkySymbols:size=14}J${font} M E M O R Y» $hr
+
+${offset 10}${color}RAM:${alignc -20}${color6}$mem${color} / ${color2}$memmax${color} ${color6}${alignr 10}$memperc%
+${color1}${membar 8,300}
+
+${offset 10}${color}SWAP:${alignc -20}${color6}$swap${color} / ${color2}$swapmax${color} ${color6}${alignr 10}$swapperc%
+${color1}${swapbar 8,300}
+
+${offset 10}${color}Top Processes${alignr 60}cpu%${alignr}mem%
+${offset 15}${color}1  -  ${color1}${top_mem name 1}${alignr 75} ${color6}${top_mem cpu 1}${alignr 15}${top_mem mem 1}
+${offset 15}${color}2  -  ${color1}${top_mem name 2}${alignr 75} ${color6}${top_mem cpu 2}${alignr 15}${top_mem mem 2}
+${offset 15}${color}3  -  ${color1}${top_mem name 3}${alignr 75} ${color6}${top_mem cpu 3}${alignr 15}${top_mem mem 3}
+${offset 15}${color}4  -  ${color1}${top_mem name 4}${alignr 75} ${color6}${top_mem cpu 4}${alignr 15}${top_mem mem 4}
+${offset 15}${color}5  -  ${color1}${top_mem name 5}${alignr 75} ${color6}${top_mem cpu 5}${alignr 15}${top_mem mem 5}
+
+${color4}${offset 10}$hr${color}
+
+]];
 
 conky.text = [[
 #--------------------------------------------------------------------------------------------------------------------------------
