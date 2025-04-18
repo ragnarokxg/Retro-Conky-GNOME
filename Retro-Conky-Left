@@ -71,7 +71,7 @@ ${offset 10}${color}Battery Time: ${color6}${alignr 10}${battery_time}
 #-------------------------------------------------------------------------------------------------------------------------------
 ${color4}${font ConkySymbols:size=14}f${font} C P U» $hr
 
-${alignc -15}${font FiraBook:size=10}${color2}${exec cat /proc/cpuinfo|grep 'model name'|awk -F ' ' 'NR==1 {print $4, $5, $6, $7}'}${font}
+${alignc -15}${font FiraBook:size=10}${color2}${exec cat /proc/cpuinfo|grep 'model name'|awk -F ' ' 'NR==1 {print $4, $5, $6, $7}'}
 ${offset 10}${color}Active Governor: ${color2}${alignr 10}${exec cat /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor}
 ${offset 10}${color}Clock Rate:      ${color6}${alignr 10}${freq_g 0}GHz
 ${offset 10}${color}CPU Temp:        ${color6}${alignr 10}${exec sensors | grep 'CPU' | awk 'NR==1 {print $2}'}
