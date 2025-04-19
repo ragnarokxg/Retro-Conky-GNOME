@@ -60,11 +60,12 @@ conky.text = [[
 #--------------------------------------------------------------------------------------------------------------------------------
 ${color4}${font ConkySymbols:size=14}a${font} S Y S T E M» $hr
 
-${offset 10}${color}OS:           ${color2}${alignr 10}${exec cat /etc/*-release | grep 'DISTRIB' | awk -F '=' 'NR==1 {print $2}'}${color}
-${offset 10}${color}Version:      ${color2}${alignr 10}${exec cat /etc/*-release | grep 'VERSION' | awk -F '"' 'NR==2 {print $2}' | cut -c 1-11}
-${offset 10}${color}Kernel:       ${color2}${alignr 10}${kernel}
-${offset 10}${color}Uptime:       ${color6}${alignr 10}${uptime}
-${offset 10}${color}Battery Time: ${color6}${alignr 10}${battery_time}
+${offset 10}${color}OS:            ${color2}${alignr 10}${exec cat /etc/*-release | grep 'PRETTY_NAME' | awk -F '"' 'NR==1 {print $2}'}
+${offset 10}${color}Host:          ${color2}${alignr 10}${exec cat /sys/devices/virtual/dmi/id/product_version}
+${offset 10}${color}Kernel:        ${color2}${alignr 10}${kernel}
+${offset 10}${color}DE:            ${color2}${alignr 10}${exec echo $XDG_CURRENT_DESKTOP}
+${offset 10}${color}Uptime:        ${color6}${alignr 10}${uptime}
+${offset 10}${color}Battery Time:  ${color6}${alignr 10}${battery_time}
 
 #--------------------------------------------------------------------------------------------------------------------------------
 #                                                   CPU
