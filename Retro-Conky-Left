@@ -44,7 +44,7 @@ conky.config = {
 --#############################
 --#    - Color  Settings -    #
 --#############################
-    default_color = '#ffffff',
+    default_color = '#FFFFFF',
     default_shade_color = '#000000',
     color1 = '#1CEBD3',
     color2 = '#1B87AB',
