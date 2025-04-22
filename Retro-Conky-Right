@@ -58,56 +58,56 @@ conky.text = [[
 #--------------------------------------------------------------------------------------------------------------------------------
 #                                                   Date/Time
 #--------------------------------------------------------------------------------------------------------------------------------
-${color2}${font ConkySymbols:size=14}a${font} Date/Time» $hr
+${color4}${font ConkySymbols:size=14}a${font} Date/Time» $hr
 
-${offset 10}${color1}Day:  ${color2}${alignr 10}${time %A}
-${offset 10}${color1}Date: ${color2}${alignr 10}${time %d %B %Y}
-${offset 10}${color1}Time: ${color2}${alignr 10}${time %I}:${time %M %p}
+${offset 10}${color}Day:  ${color6}${alignr 10}${time %A}
+${offset 10}${color}Date: ${color6}${alignr 10}${time %d %B %Y}
+${offset 10}${color}Time: ${color6}${alignr 10}${time %I}:${time %M %p}
 
 #-------------------------------------------------------------------------------------------------------------------------------
 #                                                   GPU
 #-------------------------------------------------------------------------------------------------------------------------------
-${color2}${font ConkySymbols:size=14}f${font} G P U» $hr
+${color4}${font ConkySymbols:size=14}f${font} G P U» $hr
 
-${offset 10}${color1}Graphics cards:  ${color2}${alignr 10}${exec hwinfo --gfxcard | grep "Device" | awk -F '"' 'NR==1{print $2}'}
-${offset 10}${color1}Mesa Driver:     ${color2}${alignr 10}${execi 600 glxinfo | grep "OpenGL version string" | awk 'NR==1{print $8}' | cut -c 1-8}
-${offset 10}${color1}Display Server:  ${color2}${alignr 10}${exec echo $XDG_SESSION_TYPE}
+${offset 10}${color}Graphics cards:  ${color2}${alignr 10}${exec hwinfo --gfxcard | grep "Device" | awk -F '"' 'NR==1{print $2}'}
+${offset 10}${color}Mesa Driver:     ${color2}${alignr 10}${execi 600 glxinfo | grep "OpenGL version string" | awk 'NR==1{print $8}' | cut -c 1-8}
+${offset 10}${color}Display Server:  ${color2}${alignr 10}${exec echo $XDG_SESSION_TYPE}
 
 #--------------------------------------------------------------------------------------------------------------------------------
 #                                                   Network
 #-------------------------------------------------------------------------------------------------------------------------------
-${color2}${font ConkySymbols:size=14}b${font} Network» $hr
+${color4}${font ConkySymbols:size=14}b${font} Network» $hr
 
-${offset 10}${color1}Host:         ${color2}${alignr 10}${exec hostname}
-${offset 10}${color1}Network SSID: ${color2}${alignr 10}${wireless_essid wlp3s0}
-${offset 10}${color1}Signal:       ${color2}${alignr 10}${wireless_link_qual_perc wlp3s0} %
+${offset 10}${color}Host:         ${color2}${alignr 10}${exec hostname}
+${offset 10}${color}Network SSID: ${color2}${alignr 10}${wireless_essid wlp4s0}
+${offset 10}${color}Signal:       ${color6}${alignr 10}${wireless_link_qual_perc wlp4s0} %
+
+${offset 10}${color4}$hr
+
+${offset 10}${color}Internal IP: ${color2}${alignr 10}${addr wlp4s0}
+${offset 10}${color}External IP: ${color2}${alignr 10}${exec curl ipinfo.io/ip}
 
 ${offset 10}${color2}$hr
 
-${offset 10}${color1}Internal IP: ${color2}${alignr 10}${addr wlp3s0}
-${offset 10}${color1}External IP: ${color2}${alignr 10}${exec curl ipinfo.io/ip}
+${offset 10}${color}Upload Speed: ${color6}${alignr 10}${upspeed wlp3s0} ${color1}${upspeedgraph wlp4s0 10,120 6FC3DF 6FC3DF -t}
+${offset 10}${color}Down Speed:   ${color6}${alignr 10}${downspeed wlp3s0} ${color1}${downspeedgraph wlp4s0 10,120 6FC3DF 6FC3DF -t}
 
-${offset 10}${color2}$hr
-
-${offset 10}${color1}Upload Speed: ${color2}${alignr 10}${upspeed wlp3s0} ${upspeedgraph wlp3s0 10,120 6FC3DF 6FC3DF -t}
-${offset 10}${color1}Down Speed:   ${color2}${alignr 10}${downspeed wlp3s0} ${downspeedgraph wlp3s0 10,120 6FC3DF 6FC3DF -t}
-
-${offset 10}${color1}Total Up:   ${alignr}${color2}${totalup wlp3s0}${color}
-${offset 10}${color1}Total Down: ${alignr}${color2}${totaldown wlp3s0}${color}
+${offset 10}${color}Total Up:   ${alignr}${color6}${totalup wlp4s0}${color}
+${offset 10}${color}Total Down: ${alignr}${color6}${totaldown wlp4s0}${color}
 
 #-------------------------------------------------------------------------------------------------------------------------------
 #                                                   Storage
 #-------------------------------------------------------------------------------------------------------------------------------
-${color2}${font ConkySymbols:size=14}k${font} S T O R A G E» $hr
+${color4}${font ConkySymbols:size=14}k${font} S T O R A G E» $hr
 
-${offset 10}${color1}root: (${fs_type /}) ${color2}${alignr}${fs_free /} ${fs_used /}
-${offset 10}${color1}${fs_size /} ${color2}${fs_bar 4 /}
-${offset 10}${color1}home: (${fs_type /home}) ${color2}${alignr}${fs_free /home/} ${fs_used /home/}
-${offset 10}${color1}${fs_size /home/} ${color2}${fs_bar 4 /home/}
+${offset 10}${color}root: (${fs_type /}) ${color6}${alignr}${fs_free /} / ${color2}${fs_used /}
+${offset 10}${color}${fs_size /}  ${color1}${fs_bar 4 /}
+${offset 10}${color}home: (${fs_type /home}) ${color6}${alignr}${fs_free /home/} / ${color2}${fs_used /home/}
+${offset 10}${color}${fs_size /home/}  ${color1}${fs_bar 4 /home/}
 
-${offset 10}${color1}Disk I/O Read:  ${color2}${alignr 10}${diskio_read}${color}${diskiograph_read 10,120 ADFF2F 32CD32 750}
-${offset 10}${color1}Disk I/O Write: ${color2}${alignr 10}${diskio_write}${color}${diskiograph_write 10,120 FF0000 8B0000 750}
+${offset 10}${color}Disk I/O Read:  ${color6}${alignr 10}${diskio_read} ${color1}${diskiograph_read 10,120 ADFF2F 32CD32 750}
+${offset 10}${color}Disk I/O Write: ${color6}${alignr 10}${diskio_write} ${color1}${diskiograph_write 10,120 FF0000 8B0000 750}
 
-${offset 10}${color1}$hr
+${offset 10}${color4}$hr
 
 ]];
